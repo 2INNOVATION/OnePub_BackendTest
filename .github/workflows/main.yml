@@ -33,7 +33,6 @@ jobs:
           npx serverless plugin install --name serverless-prune-plugin
           dart pub global activate onepub
           onepub import MjU0MzpkOWNiNzNhOS00NzcyLTQyOTYtOTBlYy02MzhlZDhhYTQ2NzY=
-          export PATH="$PATH":"$HOME/.pub-cache/bin" 
           dart pub get
           dart compile exe lib/main.dart -o build/bootstrap
           cd build
