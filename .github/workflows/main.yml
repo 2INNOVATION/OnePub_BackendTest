@@ -17,6 +17,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: eu-central-1
+      - name: Import OnePub Token
+        run: |
+          onepub import MjU0MzpkOWNiNzNhOS00NzcyLTQyOTYtOTBlYy02MzhlZDhhYTQ2NzY=
       - name: Deploy
         #STAGE: prod
         run: |
@@ -32,7 +35,6 @@ jobs:
           npx serverless plugin install --name serverless-iam-roles-per-function
           npx serverless plugin install --name serverless-prune-plugin
           dart pub global activate onepub
-          onepub import MjU0MzpkOWNiNzNhOS00NzcyLTQyOTYtOTBlYy02MzhlZDhhYTQ2NzY=
           export PATH="$PATH":"$HOME/.pub-cache/bin" 
           dart pub get
           dart compile exe lib/main.dart -o build/bootstrap
