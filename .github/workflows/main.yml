@@ -9,7 +9,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
       - name: Configure AWS credentials
         id: creds
         uses: aws-actions/configure-aws-credentials@v1
@@ -18,15 +17,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: eu-central-1
-
-      - name: Activate onepub and set PATH
-        run: |
-          export PATH="$PATH:$HOME/.pub-cache/bin"
-          dart pub global activate onepub
-        env:
-          PATH: ${{ runner.workspace }}/.pub-cache/bin:$PATH
-
       - name: Deploy
+        #STAGE: prod
         run: |
           sudo apt-get update
           sudo apt-get -y install apt-transport-https
@@ -41,6 +33,7 @@ jobs:
           npx serverless plugin install --name serverless-prune-plugin
           dart pub global activate onepub
           onepub import MjU0MzpkOWNiNzNhOS00NzcyLTQyOTYtOTBlYy02MzhlZDhhYTQ2NzY=
+          export PATH="$PATH":"$HOME/.pub-cache/bin" 
           dart pub get
           dart compile exe lib/main.dart -o build/bootstrap
           cd build
