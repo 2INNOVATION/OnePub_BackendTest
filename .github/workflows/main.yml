@@ -38,4 +38,4 @@ jobs:
           dart compile exe lib/main.dart -o build/bootstrap
           cd build
           zip bootstrap.zip ./*
-          cd ..
+          cd .. 
