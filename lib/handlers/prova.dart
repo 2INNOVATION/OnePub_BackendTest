@@ -1,5 +1,5 @@
-// import 'package:packagetest1/packagetest1.dart';
+import 'package:packagetest1/packagetest1.dart';
 
-// void main(List<String> args) {
-//   greetUser("Alessio");
-// }
+void main(List<String> args) {
+  greetUser("Alessio");
+}
