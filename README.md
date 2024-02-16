@@ -9,7 +9,7 @@ $ export PATH="$PATH":"$HOME/.pub-cache/bin"  #esportare il percorso della direc
 $ onepub login   #faccio il login
 $ dart create packagetest1 #creare una repo in Dart all'interno della quale scrivero le mie librerie
 $ cd packagetest1 #entrare dentro la repo 
-$ onepub pub private  #rendoere privata la repo, questa sarà accessibile dal propietario e dagli altri account che fanno parte dell'organizzazione, aggiunge il comando 'publish_to: `https://onepub.dev/api/myPrivateRepo/` al file pubspec.yaml
+$ onepub pub private  #rendere privata la repo, questa sarà accessibile dal propietario e dagli altri account che fanno parte dell'organizzazione, aggiunge il comando 'publish_to: `https://onepub.dev/api/myPrivateRepo/` al file pubspec.yaml
 
 # Prima della pubblicazione della repo assicurarsi di aver seguito le Best Practice
 
