@@ -16,7 +16,7 @@ $ onepub pub private  #rendere privata la repo, questa sarà accessibile dal pro
 $ dart pub publish   #pubblico la repo
 ```
 
-Best Practice da seguire quando si crea una libreria 
+Best Practice da seguire quando si crea una libreria  
 
 
 1. Rivedi il nome del tuo pacchetto nel file `pubspec.yaml`. Se prevedi di pubblicare su pub.dev, il nome deve essere univoco. Se hai intenzione di pubblicare su OnePub, il nome deve essere univoco solo all'interno della tua organizzazione.
