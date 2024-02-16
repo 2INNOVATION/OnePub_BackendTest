@@ -1,7 +1,9 @@
-# ⚡️ Scrivere una libreria su una repo privata Onepub
+# ⚡️ # SCRIVERE UNA LIBRERIA SU UNA REPO PRIVATA ONEPUB
 
 
-Da terminale inserire i seguenti comandi:
+Nel caso in cui l'utente non conincide con il proprietario della repo privata, bisogna assicurarsi di aver ricevuto ed accettato l'invito da parte del proprietario della repo per far parte dell'organizzazione, l'invito si invia dalla pagina (https://onepub.dev/members) di Onepub.
+
+# Da terminale inserire i seguenti comandi:
 
 ```bash
 $ dart pub global activate onepub  #installare onepub
@@ -10,14 +12,28 @@ $ onepub login   #faccio il login
 $ dart create packagetest1 #creare una repo in Dart all'interno della quale scrivero le mie librerie
 $ cd packagetest1 #entrare dentro la repo 
 $ onepub pub private  #rendere privata la repo, questa sarà accessibile dal propietario e dagli altri account che fanno parte dell'organizzazione, aggiunge il comando 'publish_to: `https://onepub.dev/api/myPrivateRepo/` al file pubspec.yaml
-
-# Prima della pubblicazione della repo assicurarsi di aver seguito le Best Practice
-
+# --------Prima della pubblicazione della repo assicurarsi di aver seguito le Best Practice------
 $ dart pub publish   #pubblico la repo
 ```
 
-Best Practice da seguire quando si crea una libreria  
 
+# Comandi per workflow di GitHub:
+
+Nel caso in cui l'utente non conincide con il proprietario della repo privata, bisogna assicurarsi di essere in possesso del token del CI/CD member dell'organizzazizone.
+
+```bash
+$ dart pub global activate onepub  #installare onepub
+$ export PATH="$PATH":"$HOME/.pub-cache/bin"  #esportare il percorso della directory dove è installato 
+$ export ONEPUB_TOKEN="${{ secrets.ONEPUB_TOKEN }}";onepub import #importo il toke da Github Secret
+$ dart pub get #aggiorno tutte le dipendenze 
+$ dart pub token add https://onepub.dev/api/fovhhnofly/ --env-var=ONEPUB_TOKEN #faccio il login all'organizzazione tramite token 
+$ onepub pub private  #rendere privata la repo, questa sarà accessibile dal propietario e dagli altri account che fanno parte dell'organizzazione, aggiunge il comando 'publish_to: `https://onepub.dev/api/myPrivateRepo/` al file pubspec.yaml
+# --------Prima della pubblicazione della repo assicurarsi di aver seguito le Best Practice------
+$ dart pub publish   #pubblico la repo
+```
+
+
+# Best Practice da seguire quando si crea una libreria  
 
 1. Rivedi il nome del tuo pacchetto nel file `pubspec.yaml`. Se prevedi di pubblicare su pub.dev, il nome deve essere univoco. Se hai intenzione di pubblicare su OnePub, il nome deve essere univoco solo all'interno della tua organizzazione.
 
@@ -46,11 +62,14 @@ int calculate() {
 Dentro la cartella src avrò add.dart e greetUser.Dart
 
 
-# ⚡️ Caricare una libreria da una repo privata Onepub
+
+
+# ⚡️ #  SCARICARE UNA LIBRERIA DA UNA REPO PRIVATA ONEPUB
+
 
 Nel caso in cui l'utente non conincide con il proprietario della repo privata, bisogna assicurarsi di aver ricevuto ed accettato l'invito da parte del proprietario della repo per far parte dell'organizzazione, l'invito si invia dalla pagina (https://onepub.dev/members) di Onepub.
 
-Da terminale inserire i seguenti comandi:
+# Da terminale inserire i seguenti comandi:
 
 ```bash
 $ dart pub global activate onepub  #installo onepub
@@ -61,17 +80,27 @@ $ onepub pub add packagetest1  #aggiungo all mia lista delle dipendenze del mi p
 $ dart pub get    #aggiorno tutte le librerie da cui dipende il mio progetto
 ```
 
+# Comandi per workflow di GitHub:
+Nel caso in cui l'utente non conincide con il proprietario della repo privata, bisogna assicurarsi di essere in possesso del token del CI/CD member dell'organizzazizone.
 
-# ⚡️ Workflow Github
+```bash
+$ dart pub global activate onepub  #installo onepub
+$ export PATH="$PATH":"$HOME/.pub-cache/bin"  #esporto il percorso della directory dove è installato 
+$ export ONEPUB_TOKEN="${{ secrets.ONEPUB_TOKEN }}";onepub import #importo il toke da Github Secret
+$ dart pub token add --env-var=ONEPUB_TOKEN https://onepub.dev/api/fovhhnofly/ #faccio il login all'organizzazione tramite token 
+$ dart pub get    #aggiorno tutte le librerie da cui dipende il mio progetto
 
-All'interno del Workflow di Github è previsto l'implementazione di Onepub. In questo caso il proprietario della repo deve creare un Account CI/CD dalla pagina (https://onepub.dev/members) di Onepub, dopo bisogna esportare il token e salvarlo su GitHub Secret. Il workflow di Github si trova dentro il file main.yaml nel percorso `./.github/workflows` .
+```
+
+
 
 
 ## ℹ️  Informazioni Aggiuntive
 
-1. Per utilizzare il sistema Onepub su flutter, i comandi e le procedure sono le medesime, basta soltanto sostituire la stringa `dart` con `flutter` all'interno dei comandi.
-2. Una volta pubblicata una repo, che sia sua Dart o Onepub, questa non potrà essere più eliminata, si potrà solamente contrassegnare come deprecata.
-3. Per pubblicare una repo e renderla disponibile a tutti gli utenti Dart, bisgogna assicurarsi che nel file pubspec.yaml sia presente questo comando: `publish_to: none`, testare e validare la libreria quindi eseguire i seguenti comandi: 
+1. All'interno del Workflow di Github è previsto l'implementazione di Onepub. In questo caso il proprietario della repo deve creare un Account CI/CD dalla pagina (https://onepub.dev/members) di Onepub, dopo deve esportare il token e salvarlo su GitHub Secret. Il workflow di Github si trova dentro il file main.yaml nel percorso `./.github/workflows` .
+2. Per utilizzare il sistema Onepub su flutter, i comandi e le procedure sono le medesime, basta soltanto sostituire la stringa `dart` con `flutter` all'interno dei comandi.
+3. Una volta pubblicata una repo, che sia sua Dart o Onepub, questa non potrà essere più eliminata, si potrà solamente contrassegnare come deprecata.
+4. Per pubblicare una repo e renderla disponibile a tutti gli utenti Dart, bisgogna assicurarsi che nel file pubspec.yaml sia presente questo comando: `publish_to: none`, testare e validare la libreria quindi eseguire i seguenti comandi: 
 
 ```bash
 $ cd myproject  #entro dentro la cartello del mio progetto
