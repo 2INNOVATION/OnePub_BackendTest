@@ -23,7 +23,7 @@ dependencies:
   #   version: ^0.0.2
   centriko_common_models:
     hosted: https://onepub.dev/api/kbbxxpsdav/
-    version: ^0.0.2
+    version: ^1.0.1
 
 dev_dependencies:
   build_runner:
