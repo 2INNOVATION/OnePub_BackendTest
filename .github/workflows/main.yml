@@ -34,7 +34,7 @@ jobs:
           dart pub global activate onepub
           export PATH="$PATH":"$HOME/.pub-cache/bin" 
           export ONEPUB_TOKEN="${{ secrets.ONEPUB_TOKEN }}";onepub import
-          dart pub token add --env-var=ONEPUB_TOKEN https://onepub.dev/api/fovhhnofly/
+          dart pub token add --env-var=ONEPUB_TOKEN https://onepub.dev/api/kbbxxpsdav/ 
           dart pub get
           dart compile exe lib/main.dart -o build/bootstrap
           cd build
