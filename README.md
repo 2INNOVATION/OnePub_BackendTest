@@ -64,7 +64,7 @@ Dentro la cartella src avrò add.dart e greetUser.Dart
 
 
 
-# ⚡️ #  SCARICARE UNA LIBRERIA DA UNA REPO PRIVATA ONEPUB
+# ⚡️ #  SCARICARE UNA LIBRERIA DA UNA REPO PRIVATA ONEPUB SU BACKEND
 
 
 Nel caso in cui l'utente non conincide con il proprietario della repo privata, bisogna assicurarsi di aver ricevuto ed accettato l'invito da parte del proprietario della repo per far parte dell'organizzazione, l'invito si invia dalla pagina (https://onepub.dev/members) di Onepub.
@@ -92,17 +92,59 @@ $ dart pub get    #aggiorno tutte le librerie da cui dipende il mio progetto
 
 ```
 
+# ⚡️ #  SCARICARE UNA LIBRERIA DA UNA REPO PRIVATA ONEPUB SU FRONTEND
 
+
+In questo caso basta aggiornare le impostazioni di build dell'app su Amplify, in alternativa si può scaricare il file di build sotto con l'estensione yaml ed inserirlo nell root della nostra app. Il file sara simile a quello riportato qui sotto. 
+Oltre ad aggiornere le impostazioni di build bisogna inserire il nostro pacchetto all'interno delle dipendenze del file pubspec.yaml.
+
+# file amplify.yaml:
+
+```bash
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - git clone https://github.com/flutter/flutter.git -b stable
+        - export PATH="$PATH:`pwd`/flutter/bin"
+        - flutter pub global activate onepub
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export ONEPUB_TOKEN="$ONEPUB_TOKEN"
+        - onepub import
+        - flutter pub token add --env-var=ONEPUB_TOKEN https://onepub.dev/api/kbbxxpsdav/
+        - flutter pub get
+    build:
+      commands:
+        - flutter build web --profile --web-renderer=auto --dart-define=CENTRIKO_COGNITO_USER_POOL_ID=$CENTRIKO_COGNITO_USER_POOL_ID --dart-define=CENTRIKO_COGNITO_APP_CLIENT_ID=$CENTRIKO_COGNITO_APP_CLIENT_ID
+  artifacts:
+    baseDirectory: build/web
+    files:
+      - '**/*'
+  cache:
+    paths: []
+```
 
 
 ## ℹ️  Informazioni Aggiuntive
 
-1. All'interno del Workflow di Github è previsto l'implementazione di Onepub. In questo caso il proprietario della repo deve creare un Account CI/CD dalla pagina (https://onepub.dev/members) di Onepub, dopo deve esportare il token e salvarlo su GitHub Secret. Il workflow di Github si trova dentro il file main.yaml nel percorso `./.github/workflows` .
-2. Per utilizzare il sistema Onepub su flutter, i comandi e le procedure sono le medesime, basta soltanto sostituire la stringa `dart` con `flutter` all'interno dei comandi.
-3. Una volta pubblicata una repo, che sia sua Dart o Onepub, questa non potrà essere più eliminata, si potrà solamente contrassegnare come deprecata.
-4. Per pubblicare una repo e renderla disponibile a tutti gli utenti Dart, bisgogna assicurarsi che nel file pubspec.yaml sia presente questo comando: `publish_to: none`, testare e validare la libreria quindi eseguire i seguenti comandi: 
+1. Aggiornare il file pusbec.yaml con il pacchetto aggiornato all'ultima versione:
+
+```bash
+dependencies:
+  centriko_common_models:
+    hosted: https://onepub.dev/api/kbbxxpsdav/
+    version: ^1.0.1
+```  
+2. All'interno del Workflow di Github è previsto l'implementazione di Onepub. In questo caso il proprietario della repo deve creare un Account CI/CD dalla pagina (https://onepub.dev/members) di Onepub, dopo deve esportare il token e salvarlo su GitHub Secret. Il workflow di Github si trova dentro il file main.yaml nel percorso `./.github/workflows` .
+3. Per utilizzare il sistema Onepub su flutter, i comandi e le procedure sono le medesime, basta soltanto sostituire la stringa `dart` con `flutter` all'interno dei comandi.
+4. Una volta pubblicata una repo, che sia sua Dart o Onepub, questa non potrà essere più eliminata, si potrà solamente contrassegnare come deprecata.
+5. Per pubblicare una repo e renderla disponibile a tutti gli utenti Dart, bisgogna assicurarsi che nel file pubspec.yaml sia presente questo comando: `publish_to: none`, testare e validare la libreria quindi eseguire i seguenti comandi: 
 
 ```bash
 $ cd myproject  #entro dentro la cartello del mio progetto
 $ dart pub publish  #aggiorno tutte le librerie da cui dipende il mio progetto
 ```
+
+
+
